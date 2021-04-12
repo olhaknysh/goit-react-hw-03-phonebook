@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import ContactList from './components/ContactList';
 import ContactForm from './components/ContactForm';
@@ -13,6 +13,15 @@ const App = () => {
   ]);
   const [filter, setFilter] = useState('');
 
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('contacts'));
+    setContacts(data);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
+
   const handleSubmit = newContact => {
     setContacts(prevState => [...prevState, newContact]);
   };
@@ -26,7 +35,6 @@ const App = () => {
   };
 
   const visibleContacts = () => {
-    console.log(123);
     const normalisedFilter = filter.toLowerCase();
     const visibleContacts = contacts.filter(({ name }) =>
       name.toLowerCase().includes(normalisedFilter),
