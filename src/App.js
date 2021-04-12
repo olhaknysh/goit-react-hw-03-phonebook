@@ -26,6 +26,7 @@ const App = () => {
   };
 
   const visibleContacts = () => {
+    console.log(123);
     const normalisedFilter = filter.toLowerCase();
     const visibleContacts = contacts.filter(({ name }) =>
       name.toLowerCase().includes(normalisedFilter),
